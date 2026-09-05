@@ -1,14 +1,21 @@
-const CACHE_NAME = 'honduras-palpita-v4';
+// Bump this version on every deploy that changes cached files,
+// otherwise returning visitors keep seeing the old cached version.
+const CACHE_NAME = 'honduras-palpita-v5';
+
+// NOTE: this app is a single-page app (index.html handles both views
+// via JS, see #envivo / #contactenos hash routing). If you still have
+// separate envivo.html / contactenos.html files in the repo, add them
+// back here — otherwise leave them out, caching a 404 is wasted space.
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
-  './envivo.html',
-  './contactenos.html',
   './manifest.json',
   './img/logo.png',
-  './img/Honduras Palpita transparante.png',
+  './img/honduras-palpita-logo.png',
   './icons/icon-192.png',
   './icons/icon-512.png',
+  './icons/icon-192-maskable.png',
+  './icons/icon-512-maskable.png',
   './icons/apple-touch-icon.png',
   './icons/favicon.png'
 ];
@@ -43,14 +50,17 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch Event - Serve cached assets when offline, ignore audio stream
+// Fetch Event - Serve cached assets when offline, never touch the radio stream
 self.addEventListener('fetch', (event) => {
-  const url = event.request.url;
+  // Only handle same-origin GET requests. Never intercept the audio
+  // stream, cross-origin requests (fonts, tailwind CDN, etc.) or
+  // non-GET requests — trying to cache those causes silent failures
+  // and, worse, can break the live stream on some browsers.
+  if (event.request.method !== 'GET') return;
 
-  // Bypass cache for radio stream
-  if (url.includes('sonic2.sistemahost.es') || url.includes('/stream')) {
-    return;
-  }
+  const url = new URL(event.request.url);
+  if (url.origin !== self.location.origin) return;
+  if (url.pathname.includes('/stream') || url.hostname.includes('sistemahost.es')) return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
@@ -73,7 +83,7 @@ self.addEventListener('fetch', (event) => {
 
         return networkResponse;
       }).catch(() => {
-        // Fallback for HTML navigation requests offline
+        // Fallback for HTML navigation requests when fully offline
         if (event.request.mode === 'navigate') {
           return caches.match('./index.html');
         }
