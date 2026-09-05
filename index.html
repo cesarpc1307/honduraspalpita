@@ -220,6 +220,11 @@
         </div>
       </div>
       <div class="flex items-center gap-space-xs">
+        <button id="btn-header-install" aria-label="Instalar aplicación"
+          class="hidden px-3 py-1.5 rounded-full bg-secondary/20 text-secondary hover:bg-secondary/30 transition-all flex items-center gap-1.5 border border-secondary/30 font-label-sm text-label-sm font-bold active:scale-95">
+          <span class="material-symbols-outlined text-[18px]">install_mobile</span>
+          <span>Instalar</span>
+        </button>
         <button id="btn-share-app" aria-label="Compartir aplicación"
           class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-high/60 text-on-surface hover:bg-surface-container-high transition-colors">
           <span class="material-symbols-outlined text-[20px]">share</span>
@@ -678,7 +683,7 @@
             Copiar enlace de la App (GitHub)
           </label>
           <div class="flex items-center gap-2">
-            <input type="text" id="input-share-url" readonly value="https://github.com/HondurasPalpita/HondurasPalpita"
+            <input type="text" id="input-share-url" readonly value="https://cesarpc1307.github.io/honduraspalpita/"
               class="w-full bg-surface-container-highest text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-xl border border-white/10 focus:outline-none select-all font-mono text-xs shadow-inner">
             <button id="btn-copy-share-url"
               class="px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center gap-1.5 hover:bg-primary/90 transition-all active:scale-95 shrink-0 shadow-md">
@@ -690,6 +695,73 @@
 
 
       </div>
+    </div>
+  </div>
+
+  <!-- Modal Guía de Instalación PWA (Android / iPhone) -->
+  <div id="modal-install-guide"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div id="modal-install-content"
+      class="relative w-full max-w-md bg-surface-container-high border border-white/10 rounded-3xl p-6 shadow-2xl transform scale-95 transition-all duration-300 max-h-[90vh] overflow-y-auto">
+
+      <!-- Header Modal -->
+      <div class="flex items-start justify-between mb-4">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-12 h-12 rounded-2xl bg-white p-1.5 border border-white/20 flex items-center justify-center shrink-0 shadow-sm">
+            <img src="img/Honduras Palpita transparante.png" alt="Honduras Palpita Logo" class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">Instalar App</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">Radio en vivo sin abrir el navegador</p>
+          </div>
+        </div>
+        <button id="btn-close-install-modal" aria-label="Cerrar modal"
+          class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <!-- Instructions Container -->
+      <div id="install-guide-steps" class="space-y-3 pt-2">
+        <!-- iOS Safari Instructions -->
+        <div id="guide-ios" class="hidden space-y-3">
+          <p class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Pasos para iPhone / iPad (Safari):</p>
+          <div class="p-3.5 bg-surface-container-lowest/90 border border-white/10 rounded-2xl flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-primary/20 text-primary font-bold text-xs flex items-center justify-center shrink-0">1</span>
+            <p class="font-body-md text-body-md text-on-surface">Toca el botón <strong>Compartir</strong> <span class="inline-flex px-2 py-0.5 rounded bg-surface-container-highest text-secondary items-center gap-1 font-bold text-xs"><span class="material-symbols-outlined text-[16px]">ios_share</span></span> en la barra inferior de Safari.</p>
+          </div>
+          <div class="p-3.5 bg-surface-container-lowest/90 border border-white/10 rounded-2xl flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-primary/20 text-primary font-bold text-xs flex items-center justify-center shrink-0">2</span>
+            <p class="font-body-md text-body-md text-on-surface">Desplázate hacia abajo y selecciona <strong>"Agregar al inicio"</strong> <span class="inline-flex px-2 py-0.5 rounded bg-surface-container-highest text-secondary items-center gap-1 font-bold text-xs"><span class="material-symbols-outlined text-[16px]">add_box</span></span>.</p>
+          </div>
+          <div class="p-3.5 bg-surface-container-lowest/90 border border-white/10 rounded-2xl flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-primary/20 text-primary font-bold text-xs flex items-center justify-center shrink-0">3</span>
+            <p class="font-body-md text-body-md text-on-surface">Toca <strong>"Agregar"</strong> arriba a la derecha. ¡Listo! Tendrás el icono directo en tu pantalla.</p>
+          </div>
+        </div>
+
+        <!-- Android Instructions -->
+        <div id="guide-android" class="hidden space-y-3">
+          <p class="font-label-sm text-label-sm uppercase tracking-wider text-secondary font-bold">Pasos para Android (Chrome / Navegador):</p>
+          <div class="p-3.5 bg-surface-container-lowest/90 border border-white/10 rounded-2xl flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-primary/20 text-primary font-bold text-xs flex items-center justify-center shrink-0">1</span>
+            <p class="font-body-md text-body-md text-on-surface">Toca el menú de <strong>3 puntos</strong> <span class="inline-flex px-2 py-0.5 rounded bg-surface-container-highest text-secondary items-center gap-1 font-bold text-xs"><span class="material-symbols-outlined text-[16px]">more_vert</span></span> arriba en tu navegador.</p>
+          </div>
+          <div class="p-3.5 bg-surface-container-lowest/90 border border-white/10 rounded-2xl flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-primary/20 text-primary font-bold text-xs flex items-center justify-center shrink-0">2</span>
+            <p class="font-body-md text-body-md text-on-surface">Selecciona <strong>"Instalar aplicación"</strong> o <strong>"Agregar a la pantalla principal"</strong> <span class="inline-flex px-2 py-0.5 rounded bg-surface-container-highest text-secondary items-center gap-1 font-bold text-xs"><span class="material-symbols-outlined text-[16px]">install_mobile</span></span>.</p>
+          </div>
+          <div class="p-3.5 bg-surface-container-lowest/90 border border-white/10 rounded-2xl flex items-center gap-3">
+            <span class="w-7 h-7 rounded-full bg-primary/20 text-primary font-bold text-xs flex items-center justify-center shrink-0">3</span>
+            <p class="font-body-md text-body-md text-on-surface">Confirma para guardar el acceso directo como App nativa en tu celular.</p>
+          </div>
+        </div>
+      </div>
+
+      <button id="btn-understood-install" class="w-full mt-5 py-3 rounded-2xl bg-primary text-on-primary font-label-lg text-label-lg font-bold shadow-md hover:bg-primary/90 transition-all active:scale-95">
+        Entendido
+      </button>
     </div>
   </div>
 
@@ -1002,7 +1074,7 @@
         const btnShareWhatsapp = document.getElementById('btn-share-whatsapp');
         const btnShareNative = document.getElementById('btn-share-native');
 
-        const defaultGithubUrl = 'https://github.com/HondurasPalpita/HondurasPalpita';
+        const defaultGithubUrl = 'https://cesarpc1307.github.io/honduraspalpita/';
         const currentUrl = window.location.href;
         const appShareUrl = (currentUrl.includes('github.io') || currentUrl.includes('honduraspalpita')) ? currentUrl : defaultGithubUrl;
 
@@ -1089,8 +1161,20 @@
         });
 
         // ------------------------------------
-        // PWA Installation & Service Worker
+        // PWA Installation & Service Worker Logic
         // ------------------------------------
+        const btnHeaderInstall = document.getElementById('btn-header-install');
+        const modalInstallGuide = document.getElementById('modal-install-guide');
+        const modalInstallContent = document.getElementById('modal-install-content');
+        const btnCloseInstallModal = document.getElementById('btn-close-install-modal');
+        const btnUnderstoodInstall = document.getElementById('btn-understood-install');
+        const guideIos = document.getElementById('guide-ios');
+        const guideAndroid = document.getElementById('guide-android');
+
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+        const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent);
+        const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
@@ -1099,23 +1183,64 @@
           });
         }
 
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
-          pwaBanner.classList.remove('hidden');
-        });
+        function openInstallGuide() {
+          if (isIos) {
+            guideIos.classList.remove('hidden');
+            guideAndroid.classList.add('hidden');
+          } else {
+            guideAndroid.classList.remove('hidden');
+            guideIos.classList.add('hidden');
+          }
+          modalInstallGuide.classList.remove('opacity-0', 'pointer-events-none');
+          modalInstallGuide.classList.add('opacity-100', 'pointer-events-auto');
+          modalInstallContent.classList.remove('scale-95');
+          modalInstallContent.classList.add('scale-100');
+        }
 
-        btnInstallApp.addEventListener('click', () => {
+        function closeInstallGuide() {
+          modalInstallGuide.classList.remove('opacity-100', 'pointer-events-auto');
+          modalInstallGuide.classList.add('opacity-0', 'pointer-events-none');
+          modalInstallContent.classList.remove('scale-100');
+          modalInstallContent.classList.add('scale-95');
+        }
+
+        function handleInstallAction() {
           if (deferredPrompt) {
             deferredPrompt.prompt();
             deferredPrompt.userChoice.then((choiceResult) => {
               if (choiceResult.outcome === 'accepted') {
                 showToast('¡Gracias por instalar Honduras Palpita!', 'favorite');
+                pwaBanner.classList.add('hidden');
+                if (btnHeaderInstall) btnHeaderInstall.classList.add('hidden');
               }
               deferredPrompt = null;
-              pwaBanner.classList.add('hidden');
             });
+          } else {
+            openInstallGuide();
           }
+        }
+
+        if (!isStandalone && isMobile) {
+          pwaBanner.classList.remove('hidden');
+          if (btnHeaderInstall) btnHeaderInstall.classList.remove('hidden');
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          if (!isStandalone) {
+            pwaBanner.classList.remove('hidden');
+            if (btnHeaderInstall) btnHeaderInstall.classList.remove('hidden');
+          }
+        });
+
+        btnInstallApp.addEventListener('click', handleInstallAction);
+        if (btnHeaderInstall) btnHeaderInstall.addEventListener('click', handleInstallAction);
+        btnCloseInstallModal.addEventListener('click', closeInstallGuide);
+        btnUnderstoodInstall.addEventListener('click', closeInstallGuide);
+
+        modalInstallGuide.addEventListener('click', (e) => {
+          if (e.target === modalInstallGuide) closeInstallGuide();
         });
 
         btnDismissInstall.addEventListener('click', () => {

@@ -1,22 +1,24 @@
-const CACHE_NAME = 'honduras-palpita-v2';
+const CACHE_NAME = 'honduras-palpita-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './envivo.html',
   './contactenos.html',
   './manifest.json',
-  './img/Honduras Palpita transparante.png',
-  './icons/icon-192.png',
-  './icons/icon-512.png',
-  './icons/apple-touch-icon.png',
-  './icons/favicon.png'
+  './img/Honduras Palpita transparante.png'
 ];
 
-// Install Event - Pre-cache shell assets
+// Install Event - Pre-cache shell assets safely
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+    caches.open(CACHE_NAME).then(async (cache) => {
+      for (const asset of ASSETS_TO_CACHE) {
+        try {
+          await cache.add(asset);
+        } catch (e) {
+          console.warn('Cache add skipped for:', asset, e);
+        }
+      }
     }).then(() => self.skipWaiting())
   );
 });
