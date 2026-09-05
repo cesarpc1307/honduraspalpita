@@ -3,20 +3,11 @@
 
 <head>
   <script>
-    // Captured as early as possible: if this listener is registered after
-    // the browser fires the event, the prompt is lost for this page load.
     window.deferredPrompt = null;
     window.addEventListener('beforeinstallprompt', function (e) {
       e.preventDefault();
       window.deferredPrompt = e;
       if (window.onPwaPromptReady) window.onPwaPromptReady();
-    });
-    // Fires once the user actually installs the app (from our button or
-    // the browser's own UI). Used to stop showing install prompts again.
-    window.addEventListener('appinstalled', function () {
-      window.deferredPrompt = null;
-      try { localStorage.setItem('hp-installed', '1'); } catch (e) { }
-      if (window.onPwaInstalled) window.onPwaInstalled();
     });
   </script>
   <meta charset="utf-8">
@@ -33,14 +24,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="HondurasPalpita">
-  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
-  <link rel="icon" type="image/png" sizes="48x48" href="icons/favicon.png">
+  <link rel="apple-touch-icon" href="img/Honduras Palpita transparante.png">
+  <link rel="icon" type="image/png" href="img/Honduras Palpita transparante.png">
 
   <!-- Open Graph / Meta -->
   <meta property="og:title" content="Honduras Palpita - Radio Online">
   <meta property="og:description" content="La voz y el corazón de Jesús de Otoro, Intibucá. Radio online en vivo.">
-  <meta property="og:image" content="icons/icon-512.png">
+  <meta property="og:image" content="img/Honduras Palpita transparante.png">
 
   <!-- Fonts & Material Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -185,7 +175,7 @@
   class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-white">
 
   <!-- Audio Player Engine (Hidden HTML5 Audio element) -->
-  <audio id="audio-engine" src="https://sonic2.sistemahost.es:8146/stream" playsinline preload="auto"></audio>
+  <audio id="audio-engine" src="https://sonic2.sistemahost.es:8146/stream" autoplay playsinline preload="auto"></audio>
 
   <!-- PWA Installation Banner (Mobile Only) -->
   <div id="pwa-install-banner" class="hidden fixed top-16 left-0 right-0 z-[90] px-space-md pt-2 transform transition-all duration-300">
@@ -246,7 +236,7 @@
         </button>
         <div
           class="w-9 h-9 rounded-full bg-white p-0.5 ring-2 ring-primary/20 overflow-hidden flex items-center justify-center shadow-sm">
-          <img src="img/honduras-palpita-logo.png" alt="Honduras Palpita Icon"
+          <img src="img/Honduras Palpita transparante.png" alt="Honduras Palpita Icon"
             class="w-full h-full object-contain">
         </div>
       </div>
@@ -319,7 +309,7 @@
                 <circle cx="100" cy="100" r="65" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" />
               </svg>
               <!-- Center Emblem -->
-              <img src="img/honduras-palpita-logo.png" alt="Honduras Palpita Logo"
+              <img src="img/Honduras Palpita transparante.png" alt="Honduras Palpita Logo"
                 class="w-full h-full object-contain z-10 transition-transform duration-300 hover:scale-105">
             </div>
           </div>
@@ -662,7 +652,7 @@
         <div class="flex items-center gap-3">
           <div
             class="w-12 h-12 rounded-2xl bg-white p-1.5 border border-white/20 flex items-center justify-center shrink-0 shadow-sm">
-            <img src="img/honduras-palpita-logo.png" alt="Honduras Palpita Logo"
+            <img src="img/Honduras Palpita transparante.png" alt="Honduras Palpita Logo"
               class="w-full h-full object-contain">
           </div>
           <div>
@@ -729,7 +719,7 @@
         <div class="flex items-center gap-3">
           <div
             class="w-12 h-12 rounded-2xl bg-white p-1.5 border border-white/20 flex items-center justify-center shrink-0 shadow-sm">
-            <img src="img/honduras-palpita-logo.png" alt="Honduras Palpita Logo" class="w-full h-full object-contain">
+            <img src="img/Honduras Palpita transparante.png" alt="Honduras Palpita Logo" class="w-full h-full object-contain">
           </div>
           <div>
             <h3 class="font-headline-sm text-headline-sm text-on-surface">Instalar App</h3>
@@ -862,8 +852,8 @@
               artist: 'La voz y el corazón de Jesús de Otoro',
               album: 'Radio Online • En Vivo',
               artwork: [
-                { src: 'icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-                { src: 'icons/icon-512.png', sizes: '512x512', type: 'image/png' }
+                { src: 'img/Honduras Palpita transparante.png', sizes: '192x192', type: 'image/png' },
+                { src: 'img/Honduras Palpita transparante.png', sizes: '512x512', type: 'image/png' }
               ]
             });
 
@@ -930,55 +920,30 @@
           });
         }
 
-        function markPlayingUI() {
-          isPlaying = true;
-          playIcon.textContent = 'pause';
-          playIcon.style.fontVariationSettings = "'FILL' 1";
-
-          pulseOuter.classList.add('animate-ping');
-          pulseOuter.classList.remove('hidden');
-          pulseMid.classList.add('animate-pulse');
-          stateDot.classList.add('bg-secondary', 'animate-pulse');
-          stateDot.classList.remove('bg-gray-500');
-
-          startVisualizer();
-          updateMediaSession();
-          if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
-        }
-
         function attemptAutoplay() {
           playerStateText.textContent = 'Conectando señal en vivo...';
           playIcon.textContent = 'hourglass_top';
-          audioEngine.muted = false;
 
-          audioEngine.play().then(() => {
-            // Best case: the browser allowed sound immediately.
-            markPlayingUI();
-            playerStateText.textContent = 'Sonando en Vivo • Streaming Activo';
-          }).catch(() => {
-            // Most browsers block unmuted autoplay without a prior gesture.
-            // Fall back to a silent autoplay (always allowed) so the stream
-            // is already buffering/playing the instant the app opens, then
-            // unmute automatically on the user's very first touch/click —
-            // no need to hit play again, no restart, no buffering delay.
-            audioEngine.muted = true;
-            audioEngine.play().then(() => {
-              markPlayingUI();
-              playerStateText.textContent = 'Toca la pantalla para activar el sonido';
+          const playPromise = audioEngine.play();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              isPlaying = true;
+              audioEngine.muted = false;
+              playIcon.textContent = 'pause';
+              playIcon.style.fontVariationSettings = "'FILL' 1";
+              playerStateText.textContent = 'Sonando en Vivo • Streaming Activo';
 
-              const unmuteOnGesture = () => {
-                audioEngine.muted = false;
-                playerStateText.textContent = 'Sonando en Vivo • Streaming Activo';
-                ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown'].forEach(evt => {
-                  window.removeEventListener(evt, unmuteOnGesture);
-                });
-              };
-              ['click', 'touchstart', 'touchend', 'pointerdown', 'keydown'].forEach(evt => {
-                window.addEventListener(evt, unmuteOnGesture, { passive: true, once: true });
-              });
+              pulseOuter.classList.add('animate-ping');
+              pulseOuter.classList.remove('hidden');
+              pulseMid.classList.add('animate-pulse');
+              stateDot.classList.add('bg-secondary', 'animate-pulse');
+              stateDot.classList.remove('bg-gray-500');
+
+              startVisualizer();
+              updateMediaSession();
+              if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
             }).catch(err => {
-              // Very restrictive browser/webview: no autoplay at all, even muted.
-              console.log('Autoplay bloqueado por el navegador, esperando gesto del usuario:', err);
+              console.log('Autoplay restriction active, waiting for gesture/touch:', err);
               isPlaying = false;
               playIcon.textContent = 'play_arrow';
               playerStateText.textContent = 'Toca cualquier lugar para iniciar la señal en vivo';
@@ -986,15 +951,16 @@
               const enableAudioOnGesture = () => {
                 audioEngine.muted = false;
                 playRadio();
-                ['click', 'touchstart', 'touchend', 'pointerdown'].forEach(evt => {
+                ['click', 'touchstart', 'touchend', 'pointerdown', 'scroll'].forEach(evt => {
                   window.removeEventListener(evt, enableAudioOnGesture);
                 });
               };
-              ['click', 'touchstart', 'touchend', 'pointerdown'].forEach(evt => {
+
+              ['click', 'touchstart', 'touchend', 'pointerdown', 'scroll'].forEach(evt => {
                 window.addEventListener(evt, enableAudioOnGesture, { passive: true, once: true });
               });
             });
-          });
+          }
         }
 
         function pauseRadio() {
@@ -1262,29 +1228,13 @@
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768);
         const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         const isIos = /iPhone|iPad|iPod/.test(navigator.userAgent);
-        const isInAppBrowser = /FBAN|FBAV|Instagram|Line\/|MicroMessenger/i.test(navigator.userAgent);
-
-        const DISMISS_DAYS = 7;
-        function isInstallDismissedRecently() {
-          try {
-            const ts = parseInt(localStorage.getItem('hp-install-dismissed') || '0', 10);
-            return ts && (Date.now() - ts) < DISMISS_DAYS * 24 * 60 * 60 * 1000;
-          } catch (e) { return false; }
-        }
-        function wasInstalled() {
-          try { return localStorage.getItem('hp-installed') === '1'; } catch (e) { return false; }
-        }
 
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
-            // Scope must be './' (repo root on GitHub Pages) so the SW can
-            // control the whole app — a wrong scope silently blocks install.
-            navigator.serviceWorker.register('./sw.js', { scope: './' })
-              .then(reg => console.log('SW registrado correctamente, scope:', reg.scope))
-              .catch(err => console.error('Fallo al registrar el Service Worker (esto bloquea la instalación):', err));
+            navigator.serviceWorker.register('./sw.js')
+              .then(reg => console.log('SW Registered:', reg.scope))
+              .catch(err => console.log('SW Registration failed:', err));
           });
-        } else {
-          console.warn('Este navegador no soporta Service Workers: la app no podrá instalarse ni funcionar offline.');
         }
 
         function openInstallGuide() {
@@ -1314,11 +1264,10 @@
             promptEvent.prompt();
             promptEvent.userChoice.then((choiceResult) => {
               if (choiceResult.outcome === 'accepted') {
-                // The 'appinstalled' event (registered in <head>) fires right
-                // after this and takes care of hiding buttons + the toast.
-                console.log('Usuario aceptó instalar la PWA');
-              } else {
-                console.log('Usuario rechazó instalar la PWA');
+                showToast('¡Gracias por instalar Honduras Palpita!', 'favorite');
+                if (pwaBanner) pwaBanner.classList.add('hidden');
+                if (btnHeaderInstall) btnHeaderInstall.classList.add('hidden');
+                if (btnHeroInstall) btnHeroInstall.classList.add('hidden');
               }
               window.deferredPrompt = null;
               deferredPrompt = null;
@@ -1331,15 +1280,8 @@
         }
 
         function updateInstallButtonsVisibility() {
-          // Only mobile devices get the install nudge (installing a radio
-          // app as a desktop shortcut adds little value), never once it's
-          // already installed/standalone, and never inside an in-app
-          // browser (Facebook/Instagram/WeChat webviews can't install PWAs
-          // at all — beforeinstallprompt will simply never fire there).
-          const shouldShow = isMobile && !isStandalone && !wasInstalled() && !isInAppBrowser;
-
-          if (shouldShow) {
-            if (pwaBanner && !isInstallDismissedRecently()) pwaBanner.classList.remove('hidden');
+          if (isMobile && !isStandalone) {
+            if (pwaBanner) pwaBanner.classList.remove('hidden');
             if (btnHeaderInstall) btnHeaderInstall.classList.remove('hidden');
             if (btnHeroInstall) btnHeroInstall.classList.remove('hidden');
           } else {
@@ -1347,18 +1289,9 @@
             if (btnHeaderInstall) btnHeaderInstall.classList.add('hidden');
             if (btnHeroInstall) btnHeroInstall.classList.add('hidden');
           }
-
-          if (isMobile && isInAppBrowser) {
-            console.warn('Navegador in-app detectado (Facebook/Instagram/etc): la instalación de PWA no es posible aquí. Pide al usuario que abra el enlace en Chrome o Safari.');
-          }
         }
 
         window.onPwaPromptReady = function () {
-          updateInstallButtonsVisibility();
-        };
-
-        window.onPwaInstalled = function () {
-          showToast('¡Gracias por instalar Honduras Palpita!', 'favorite');
           updateInstallButtonsVisibility();
         };
 
@@ -1380,7 +1313,6 @@
         if (btnDismissInstall) {
           btnDismissInstall.addEventListener('click', () => {
             if (pwaBanner) pwaBanner.classList.add('hidden');
-            try { localStorage.setItem('hp-install-dismissed', String(Date.now())); } catch (e) { }
           });
         }
 
