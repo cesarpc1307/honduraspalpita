@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <title>Honduras Palpita - Radio Online | Jesús de Otoro</title>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    name="viewport">
+  <meta name="description"
+    content="Escucha Honduras Palpita en vivo. La voz y el corazón de Jesús de Otoro, Intibucá, Honduras. Transmisión de radio online 24/7 en alta definición.">
+
+  <!-- PWA & Mobile Icons -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#00132d">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HondurasPalpita">
+  <link rel="apple-touch-icon" href="img/Honduras Palpita transparante.png">
+  <link rel="icon" type="image/png" href="img/Honduras Palpita transparante.png">
+
+  <!-- Open Graph / Meta -->
+  <meta property="og:title" content="Honduras Palpita - Radio Online">
+  <meta property="og:description" content="La voz y el corazón de Jesús de Otoro, Intibucá. Radio online en vivo.">
+  <meta property="og:image" content="img/Honduras Palpita transparante.png">
+
+  <!-- Fonts & Material Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    rel="stylesheet">
+
+  <style>
+    @layer base {
+
+      html,
+      body {
+        width: 100vw;
+        margin: 0;
+        padding: 0;
+        background-color: #00132d;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+      }
+
+      body {
+        overscroll-behavior: none;
+      }
+
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "on-tertiary-fixed": "#001c38",
+            "surface-variant": "#213553",
+            "on-background": "#d5e3ff",
+            "surface-container": "#09203d",
+            "on-secondary-fixed": "#261a00",
+            "error-container": "#93000a",
+            "on-secondary": "#402d00",
+            "tertiary-container": "#3394f1",
+            "on-surface": "#d5e3ff",
+            "surface": "#00132d",
+            "surface-bright": "#263a58",
+            "on-primary-fixed-variant": "#93000d",
+            "primary-fixed-dim": "#ffb4ac",
+            "tertiary": "#a2c9ff",
+            "on-tertiary-fixed-variant": "#004881",
+            "on-secondary-fixed-variant": "#5c4300",
+            "inverse-surface": "#d5e3ff",
+            "background": "#00132d",
+            "on-surface-variant": "#e4beb9",
+            "secondary-container": "#d9a200",
+            "primary-container": "#ff544c",
+            "surface-tint": "#ffb4ac",
+            "outline-variant": "#5b403d",
+            "secondary-fixed-dim": "#f8bd2a",
+            "surface-container-low": "#041c38",
+            "primary": "#ffb4ac",
+            "inverse-primary": "#bb171c",
+            "surface-container-high": "#152a48",
+            "on-error": "#690005",
+            "primary-fixed": "#ffdad6",
+            "inverse-on-surface": "#1c314e",
+            "on-secondary-container": "#533c00",
+            "on-primary-fixed": "#410002",
+            "tertiary-fixed": "#d3e4ff",
+            "on-primary": "#690006",
+            "surface-container-highest": "#213553",
+            "secondary": "#f8bd2a",
+            "surface-dim": "#00132d",
+            "secondary-fixed": "#ffdfa0",
+            "outline": "#ab8985",
+            "on-error-container": "#ffdad6",
+            "on-primary-container": "#5c0005",
+            "error": "#ffb4ab",
+            "on-tertiary-container": "#002b50",
+            "tertiary-fixed-dim": "#a2c9ff",
+            "on-tertiary": "#00315b",
+            "surface-container-lowest": "#000e24"
+          },
+          borderRadius: {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          spacing: {
+            "space-lg": "1.5rem",
+            "space-2xs": "0.25rem",
+            "space-sm": "0.75rem",
+            "waveform-height": "4rem",
+            "space-xl": "2rem",
+            "space-xs": "0.5rem",
+            "space-2xl": "3rem",
+            "space-md": "1rem",
+            "player-button-size": "4.5rem"
+          },
+          fontFamily: {
+            "headline-sm": ["Outfit"],
+            "label-sm": ["Outfit"],
+            "body-md": ["Plus Jakarta Sans"],
+            "label-lg": ["Outfit"],
+            "headline-lg": ["Outfit"],
+            "display-mobile": ["Outfit"],
+            "display-lg": ["Outfit"],
+            "body-lg": ["Plus Jakarta Sans"]
+          },
+          fontSize: {
+            "headline-sm": ["20px", { lineHeight: "26px", letterSpacing: "0", fontWeight: "600" }],
+            "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.08em", fontWeight: "700" }],
+            "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+            "label-lg": ["14px", { lineHeight: "18px", letterSpacing: "0.05em", fontWeight: "700" }],
+            "headline-lg": ["28px", { lineHeight: "34px", letterSpacing: "-0.01em", fontWeight: "700" }],
+            "display-mobile": ["32px", { lineHeight: "38px", letterSpacing: "-0.02em", fontWeight: "800" }],
+            "display-lg": ["44px", { lineHeight: "52px", letterSpacing: "-0.02em", fontWeight: "800" }],
+            "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }]
+          }
+        }
+      }
+    }
+  </script>
+</head>
+
+<body
+  class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-white">
+
+  <!-- Audio Player Engine (Hidden HTML5 Audio element) -->
+  <audio id="audio-engine" preload="none">
+    <source src="https://sonic2.sistemahost.es:8146/stream" type="audio/mpeg">
+    Tu navegador no soporta reproducción de audio en directo.
+  </audio>
+
+  <!-- PWA Installation Banner (Shows dynamically when install prompt is available) -->
+  <div id="pwa-install-banner" class="hidden fixed top-16 left-0 right-0 z-40 px-space-md pt-2">
+    <div
+      class="bg-surface-container-high/95 backdrop-blur-md border border-secondary/30 rounded-xl p-space-sm shadow-xl flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div
+          class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary shrink-0">
+          <span class="material-symbols-outlined text-[24px]">install_mobile</span>
+        </div>
+        <div>
+          <p class="font-label-lg text-label-lg text-on-surface">Instalar App Honduras Palpita</p>
+          <p class="font-label-sm text-label-sm text-on-surface-variant">Para escuchar directo desde tu celular</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="btn-install-app"
+          class="px-3 py-1.5 rounded-full bg-secondary text-on-secondary font-label-sm text-label-sm font-bold shadow-md hover:bg-secondary/90 transition-all active:scale-95">
+          Instalar
+        </button>
+        <button id="btn-dismiss-install" aria-label="Cerrar aviso de instalación"
+          class="text-on-surface-variant hover:text-on-surface p-1">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Header Navigation -->
+  <header class="fixed top-0 w-full z-50 pt-safe bg-surface/85 backdrop-blur-xl shadow-[0_1px_12px_rgba(0,0,0,0.25)]">
+    <div class="h-16 px-space-md flex items-center justify-between max-w-lg mx-auto">
+      <div class="flex items-center gap-space-xs">
+        <div
+          class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-container">
+          <span class="material-symbols-outlined text-[20px]">radio</span>
+        </div>
+        <div class="flex flex-col">
+          <div class="flex items-center gap-space-2xs">
+            <span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">Honduras
+              Palpita</span>
+          </div>
+          <div class="flex items-center gap-1.5 mt-0.5">
+            <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse" id="header-pulse-dot"></span>
+            <span class="font-label-sm text-label-sm uppercase tracking-wider text-primary" id="header-status-text">EN
+              VIVO</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-space-xs">
+        <button id="btn-share-app" aria-label="Compartir aplicación"
+          class="w-11 h-11 flex items-center justify-center rounded-full bg-surface-container-high/60 text-on-surface hover:bg-surface-container-high transition-colors">
+          <span class="material-symbols-outlined text-[20px]">share</span>
+        </button>
+        <div
+          class="w-9 h-9 rounded-full bg-white p-0.5 ring-2 ring-primary/20 overflow-hidden flex items-center justify-center shadow-sm">
+          <img src="img/Honduras Palpita transparante.png" alt="Honduras Palpita Icon"
+            class="w-full h-full object-contain">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 flex flex-col relative w-full pt-16 pb-28 bg-surface px-space-md max-w-lg mx-auto">
+
+    <!-- Toast Notification Overlay -->
+    <div id="toast-notification"
+      class="fixed top-20 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-full bg-surface-container-highest text-secondary border border-secondary/30 font-label-sm text-label-sm shadow-2xl transition-all duration-300 opacity-0 pointer-events-none transform -translate-y-2 flex items-center gap-2">
+      <span class="material-symbols-outlined text-[16px]" id="toast-icon">info</span>
+      <span id="toast-msg">Mensaje de notificación</span>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: EN VIVO (Radio Online Player)      -->
+    <!-- ========================================== -->
+    <section id="view-envivo" class="flex flex-col w-full space-y-space-md transition-opacity duration-300">
+
+      <!-- Status Chip & Location Header -->
+      <div class="flex flex-col items-center justify-center text-center pt-space-xs">
+        <div
+          class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-high shadow-inner shadow-black/40 border border-white/5">
+          <span class="relative flex h-2.5 w-2.5">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"
+              id="chip-ping"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-primary-container" id="chip-dot"></span>
+          </span>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-primary-container" id="chip-status">EN
+            VIVO • ON AIR</span>
+          <svg class="w-7 h-3 text-primary ml-0.5 animate-pulse" fill="none" viewBox="0 0 40 16">
+            <path d="M0 8H12L15 2L20 14L24 6L28 10L32 8H40" stroke="currentColor" stroke-linecap="round"
+              stroke-linejoin="round" stroke-width="2"></path>
+          </svg>
+        </div>
+        <div class="flex items-center gap-1.5 mt-2 text-on-surface-variant">
+          <span class="material-symbols-outlined text-secondary text-[16px]">location_on</span>
+          <p class="font-label-sm text-label-sm tracking-wide text-secondary">Jesús de Otoro, Intibucá, Honduras</p>
+        </div>
+      </div>
+
+      <!-- Hero Mascot / Logo Deck with Pulsing Sound Rings -->
+      <div class="relative flex flex-col items-center justify-center py-2">
+        <div
+          class="absolute w-64 h-64 rounded-full bg-gradient-to-tr from-secondary-container/15 via-primary-container/20 to-tertiary-container/10 blur-2xl pointer-events-none">
+        </div>
+
+        <!-- Pulsing Radar Disc -->
+        <div class="relative flex items-center justify-center">
+          <div class="absolute w-60 h-60 rounded-full bg-primary-container/10 animate-ping duration-1000"
+            id="pulse-outer"></div>
+          <div class="absolute w-52 h-52 rounded-full bg-secondary/15 animate-pulse" id="pulse-mid"></div>
+
+          <!-- Tactile Card Frame for Station Logo -->
+          <div
+            class="relative w-56 h-56 rounded-full bg-surface-container-highest p-3 shadow-2xl flex items-center justify-center ring-4 ring-white/10 border border-secondary/20">
+            <div
+              class="w-full h-full rounded-full overflow-hidden bg-white flex items-center justify-center relative p-3 shadow-inner border border-slate-100">
+              <!-- Radial pulse lines -->
+              <svg class="w-full h-full text-slate-300/40 absolute inset-0 p-2 pointer-events-none"
+                viewBox="0 0 200 200" fill="none">
+                <circle cx="100" cy="100" r="90" stroke="currentColor" stroke-width="1.5" stroke-dasharray="4 4" />
+                <circle cx="100" cy="100" r="65" stroke="currentColor" stroke-width="1" stroke-dasharray="3 3" />
+              </svg>
+              <!-- Center Emblem -->
+              <img src="img/Honduras Palpita transparante.png" alt="Honduras Palpita Logo"
+                class="w-full h-full object-contain z-10 transition-transform duration-300 hover:scale-105">
+            </div>
+          </div>
+        </div>
+
+        <!-- Station Identity Stack -->
+        <div class="mt-4 text-center">
+          <h1 class="font-display-mobile text-display-mobile text-on-surface tracking-tight leading-tight">
+            Honduras <span class="text-secondary">Palpita</span>
+          </h1>
+          <p class="font-body-md text-body-md text-on-surface-variant mt-0.5 flex items-center justify-center gap-1.5">
+            <span>La voz y el corazón de Jesús de Otoro</span>
+            <span class="material-symbols-outlined text-primary text-[15px]">favorite</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Equalizer Audio Wave Visualizer -->
+      <div
+        class="w-full bg-surface-container-low rounded-xl p-space-sm flex flex-col gap-2 shadow-md border border-white/5">
+        <div class="flex items-center justify-between px-1">
+          <div class="flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-tertiary text-[18px]">graphic_eq</span>
+            <span class="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">Audio en Directo</span>
+          </div>
+          <div
+            class="flex items-center gap-1.5 bg-surface-container-high px-2 py-0.5 rounded-full border border-secondary/20">
+            <span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse" id="visualizer-status-dot"></span>
+            <span class="font-label-sm text-label-sm text-secondary-fixed">HD • 128 kbps AAC</span>
+          </div>
+        </div>
+
+        <!-- Dynamic Wave Bars -->
+        <div class="h-12 w-full flex items-end justify-between gap-1 px-1 py-1" id="visualizer-container">
+          <div class="wave-bar w-1.5 rounded-full bg-tertiary transition-all duration-150" style="height: 40%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-tertiary transition-all duration-150" style="height: 60%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-tertiary-container transition-all duration-150"
+            style="height: 35%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-secondary transition-all duration-150" style="height: 75%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-secondary transition-all duration-150" style="height: 25%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-secondary-fixed-dim transition-all duration-150"
+            style="height: 65%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-primary-container transition-all duration-150"
+            style="height: 45%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-primary-container transition-all duration-150"
+            style="height: 70%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-primary-container transition-all duration-150"
+            style="height: 30%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-secondary transition-all duration-150" style="height: 85%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-secondary transition-all duration-150" style="height: 50%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-tertiary transition-all duration-150" style="height: 90%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-tertiary transition-all duration-150" style="height: 65%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-primary transition-all duration-150" style="height: 55%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-primary-container transition-all duration-150"
+            style="height: 30%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-secondary transition-all duration-150" style="height: 80%;"></div>
+          <div class="wave-bar w-1.5 rounded-full bg-tertiary transition-all duration-150" style="height: 45%;"></div>
+        </div>
+      </div>
+
+      <!-- Primary Playback Console -->
+      <div class="bg-surface-container rounded-xl p-space-md shadow-xl flex flex-col gap-4 border border-white/5">
+        <!-- Big Tactile Control Deck -->
+        <div class="flex items-center justify-around">
+          <!-- Quick Reconnect / Refresh Signal -->
+          <button id="btn-refresh" aria-label="Refrescar señal de radio"
+            class="w-12 h-12 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center active:scale-95 transition-all shadow-md hover:bg-surface-container-highest border border-white/5"
+            title="Refrescar emisión en directo">
+            <span class="material-symbols-outlined text-[22px]" id="refresh-icon">sync</span>
+          </button>
+
+          <!-- Center Hero Play/Pause Button -->
+          <button id="btn-main-play" aria-label="Reproducir o pausar señal"
+            class="relative w-20 h-20 rounded-full bg-gradient-to-b from-primary-container to-on-primary-fixed-variant text-white flex items-center justify-center shadow-2xl shadow-primary-container/40 active:scale-95 transition-all group ring-4 ring-primary-container/20">
+            <span class="material-symbols-outlined text-[42px] leading-none" id="play-icon"
+              style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+          </button>
+
+          <!-- Sleep Timer Button -->
+          <button id="btn-timer" aria-label="Temporizador de apagado"
+            class="w-12 h-12 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center active:scale-95 transition-all shadow-md hover:bg-surface-container-highest border border-white/5 relative"
+            title="Temporizador de apagado">
+            <span class="material-symbols-outlined text-[22px]">bedtime</span>
+            <span id="timer-badge"
+              class="hidden absolute -top-1 -right-1 px-1.5 py-0.2 text-[9px] font-bold rounded-full bg-secondary text-on-secondary">30m</span>
+          </button>
+        </div>
+
+        <div class="flex items-center justify-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-secondary animate-pulse" id="state-dot"></span>
+          <p id="player-state-text"
+            class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wider uppercase">
+            Presiona Play para sintonizar
+          </p>
+        </div>
+
+        <!-- Interactive Volume Console -->
+        <div class="bg-surface-container-low rounded-lg p-2.5 flex items-center gap-3 border border-white/5">
+          <button id="btn-mute" aria-label="Silenciar o activar sonido"
+            class="text-on-surface-variant hover:text-on-surface flex items-center justify-center transition-colors">
+            <span class="material-symbols-outlined text-[22px]" id="volume-icon">volume_up</span>
+          </button>
+          <div class="relative flex-1 flex items-center">
+            <input id="volume-slider" type="range" min="0" max="100" value="85" aria-label="Control de volumen"
+              class="w-full h-1.5 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-secondary">
+          </div>
+          <span id="volume-pct"
+            class="font-label-sm text-label-sm text-secondary min-w-[34px] text-right font-bold">85%</span>
+        </div>
+      </div>
+
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- VIEW 2: CONTÁCTENOS (Studio Contact View)  -->
+    <!-- ========================================== -->
+    <section id="view-contactenos" class="hidden flex-col w-full space-y-space-md transition-opacity duration-300">
+
+      <!-- Broadcast Header Banner with Brand Mark -->
+      <section
+        class="relative overflow-hidden rounded-xl bg-surface-container p-space-md shadow-md border border-white/5">
+        <div class="relative z-10 flex flex-col items-center text-center">
+          <div class="relative mb-space-xs flex items-center justify-center">
+            <div
+              class="w-16 h-16 rounded-full bg-surface-container-highest flex items-center justify-center shadow-lg border border-secondary/20">
+              <span class="material-symbols-outlined text-primary-container text-[32px]">podcasts</span>
+            </div>
+            <span class="absolute -top-1 -right-1 flex h-4 w-4">
+              <span
+                class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-container opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-4 w-4 bg-primary-container"></span>
+            </span>
+          </div>
+          <span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary mb-1">Frecuencia
+            Comunitaria</span>
+          <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight leading-tight">Cabina de Radio
+          </h1>
+          <p class="font-body-md text-body-md text-on-surface-variant max-w-xs mt-1">
+            Ponte en contacto con Honduras Palpita - La voz y el corazón de Jesús de Otoro
+          </p>
+        </div>
+      </section>
+
+      <!-- Central Studios Informational Card -->
+      <section class="rounded-xl bg-surface-container-high p-space-md shadow-sm border border-white/5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-space-sm min-w-0">
+            <div
+              class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary shrink-0">
+              <span class="material-symbols-outlined text-[26px]">location_on</span>
+            </div>
+            <div class="min-w-0">
+              <h2 class="font-headline-sm text-headline-sm text-on-surface truncate">Estudios Centrales</h2>
+              <p class="font-body-md text-body-md text-on-surface-variant truncate">Jesús de Otoro, Intibucá, HN</p>
+            </div>
+          </div>
+          <div
+            class="inline-flex items-center gap-1.5 px-space-xs py-1 rounded-full bg-surface-container-lowest text-primary border border-primary/20">
+            <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+            <span class="font-label-sm text-label-sm whitespace-nowrap">Transmisión Activa</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Direct Studio Communication Channels -->
+      <div class="flex flex-col space-y-space-sm">
+
+        <!-- Action 1: WhatsApp Cabina -->
+        <div
+          class="rounded-xl bg-surface-container p-space-md shadow-md flex flex-col space-y-space-sm border border-white/5">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center space-x-space-xs">
+              <div
+                class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary">
+                <span class="material-symbols-outlined text-[22px]">forum</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">WhatsApp de Cabina</h3>
+                <span class="font-label-sm text-label-sm text-secondary tracking-wider font-mono">+504 3192-3406</span>
+              </div>
+            </div>
+            <span
+              class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant">Mensajería
+              24/7</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            Pide tus canciones, envía saludos directos o notas de voz para que suenen al aire.
+          </p>
+          <a href="https://wa.me/50431923406" target="_blank" rel="noopener noreferrer"
+            class="w-full py-3 px-space-md rounded-xl bg-secondary text-on-secondary font-label-lg text-label-lg flex items-center justify-center space-x-space-xs shadow-md transition-transform active:scale-[0.98]">
+            <span class="material-symbols-outlined text-[20px]">chat</span>
+            <span>Enviar Mensaje o Audio / WhatsApp</span>
+          </a>
+        </div>
+
+        <!-- Action 2: Call Studio (Llamar a Cabina) -->
+        <div
+          class="rounded-xl bg-surface-container p-space-md shadow-md flex flex-col space-y-space-sm border border-white/5">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center space-x-space-xs">
+              <div
+                class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-primary-container">
+                <span class="material-symbols-outlined text-[22px]">phone_in_talk</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">Llamar a Cabina</h3>
+                <span class="font-label-sm text-label-sm text-primary tracking-wider font-mono">+504 3192-3406</span>
+              </div>
+            </div>
+            <span
+              class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-highest text-primary">En
+              el aire</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            Línea directa al locutor en turno para comentarios, dedicatorias y avisos al instante.
+          </p>
+          <a href="tel:+50431923406"
+            class="w-full py-3 px-space-md rounded-xl bg-primary-container text-on-primary font-label-lg text-label-lg flex items-center justify-center space-x-space-xs shadow-md transition-transform active:scale-[0.98]">
+            <span class="material-symbols-outlined text-[20px]">call</span>
+            <span>Llamar Ahora</span>
+          </a>
+        </div>
+
+        <!-- Action 3: Official Facebook -->
+        <div
+          class="rounded-xl bg-surface-container p-space-md shadow-md flex flex-col space-y-space-sm border border-white/5">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center space-x-space-xs">
+              <div
+                class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary">
+                <span class="material-symbols-outlined text-[22px]">public</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">Facebook Oficial</h3>
+                <span class="font-label-sm text-label-sm text-tertiary">Manuel G. Guevara</span>
+              </div>
+            </div>
+            <span
+              class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant">Social</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            Noticias, transmisiones en vivo, videos y comunidad otoreña.
+          </p>
+          <a href="https://www.facebook.com/manuel.g.guevara.9" target="_blank" rel="noopener noreferrer"
+            class="w-full py-3 px-space-md rounded-xl bg-surface-container-highest text-on-surface font-label-lg text-label-lg flex items-center justify-center space-x-space-xs shadow-md transition-transform active:scale-[0.98]">
+            <span class="material-symbols-outlined text-[20px]">open_in_new</span>
+            <span>Visitar Página en Facebook</span>
+          </a>
+        </div>
+
+        <!-- Action 4: Sitio web -->
+        <div
+          class="rounded-xl bg-surface-container p-space-md shadow-md flex flex-col space-y-space-sm border border-white/5">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center space-x-space-xs">
+              <div
+                class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-tertiary">
+                <span class="material-symbols-outlined text-[22px]">public</span>
+              </div>
+              <div>
+                <h3 class="font-headline-sm text-headline-sm text-on-surface">Sitio Web</h3>
+                <span class="font-label-sm text-label-sm text-tertiary">https://honduraspalpita.com/</span>
+              </div>
+            </div>
+            <span
+              class="font-label-sm text-label-sm px-2 py-0.5 rounded-full bg-surface-container-highest text-on-surface-variant">web</span>
+          </div>
+          <p class="font-body-md text-body-md text-on-surface-variant">
+            Publicidad, avisos y más
+          </p>
+          <a href="https://honduraspalpita.com/" target="_blank" rel="noopener noreferrer"
+            class="w-full py-3 px-space-md rounded-xl bg-surface-container-highest text-on-surface font-label-lg text-label-lg flex items-center justify-center space-x-space-xs shadow-md transition-transform active:scale-[0.98]">
+            <span class="material-symbols-outlined text-[20px]">open_in_new</span>
+            <span>Visitar el sitio web</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Coverage & Broadcast Schedule Card -->
+      <section class="rounded-xl bg-surface-container p-space-md shadow-sm border border-white/5">
+        <div class="flex items-start space-x-space-sm">
+          <div
+            class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary shrink-0">
+            <span class="material-symbols-outlined text-[22px]">cell_tower</span>
+          </div>
+          <div class="flex flex-col space-y-1">
+            <h3 class="font-label-lg text-label-lg text-on-surface">Horario & Cobertura Global</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">
+              Transmisión 24/7 en línea desde Jesús de Otoro, Intibucá para todo el mundo.
+            </p>
+            <div class="flex items-center gap-2 pt-1">
+              <span
+                class="px-2 py-0.5 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">Sin
+                Interrupciones</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </section>
+
+  </main>
+
+  <!-- Sticky Bottom Navigation Deck -->
+  <nav
+    class="fixed bottom-0 w-full z-50 pb-safe bg-surface-container-lowest/90 backdrop-blur-xl border-t border-white/5 shadow-[0_-4px_20px_rgba(0,0,0,0.35)]">
+    <div class="h-16 px-space-sm flex items-center justify-around max-w-lg mx-auto">
+
+      <!-- Button 1: En Vivo -->
+      <button id="nav-btn-envivo"
+        class="flex flex-col items-center justify-center w-28 h-12 transition-all text-secondary"
+        aria-label="Ir a la sección En Vivo">
+        <span class="material-symbols-outlined text-[24px]" id="nav-icon-envivo"
+          style="font-variation-settings: 'FILL' 1;">radio</span>
+        <span class="font-label-sm text-label-sm mt-0.5">En Vivo</span>
+        <span id="nav-indicator-envivo" class="w-1.5 h-1.5 rounded-full bg-secondary mt-0.5"></span>
+      </button>
+
+      <!-- Button 2: Contáctenos -->
+      <button id="nav-btn-contactenos"
+        class="flex flex-col items-center justify-center w-28 h-12 transition-all text-on-surface-variant hover:text-on-surface"
+        aria-label="Ir a la sección Contáctenos">
+        <span class="material-symbols-outlined text-[24px]" id="nav-icon-contactenos">contact_phone</span>
+        <span class="font-label-sm text-label-sm mt-0.5">Contáctenos</span>
+        <span id="nav-indicator-contactenos" class="w-1.5 h-1.5 rounded-full bg-transparent mt-0.5"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Modal Compartir Aplicación -->
+  <div id="modal-share-app"
+    class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div id="modal-share-content"
+      class="relative w-full max-w-md bg-surface-container-high border border-white/10 rounded-3xl p-6 shadow-2xl transform scale-95 transition-all duration-300 max-h-[90vh] overflow-y-auto">
+
+      <!-- Header Modal -->
+      <div class="flex items-start justify-between mb-5">
+        <div class="flex items-center gap-3">
+          <div
+            class="w-12 h-12 rounded-2xl bg-white p-1.5 border border-white/20 flex items-center justify-center shrink-0 shadow-sm">
+            <img src="img/Honduras Palpita transparante.png" alt="Honduras Palpita Logo"
+              class="w-full h-full object-contain">
+          </div>
+          <div>
+            <h3 class="font-headline-sm text-headline-sm text-on-surface">Compartir App</h3>
+            <p class="font-body-md text-body-md text-on-surface-variant">Elige cómo quieres compartir Honduras Palpita
+            </p>
+          </div>
+        </div>
+        <button id="btn-close-share-modal" aria-label="Cerrar modal"
+          class="w-9 h-9 rounded-full bg-surface-container-highest flex items-center justify-center text-on-surface-variant hover:text-on-surface hover:bg-white/10 transition-colors">
+          <span class="material-symbols-outlined text-[20px]">close</span>
+        </button>
+      </div>
+
+      <div class="space-y-4">
+        <!-- Opción 1: Enviar por WhatsApp (Destacada) -->
+        <a id="btn-share-whatsapp" href="#" target="_blank" rel="noopener noreferrer"
+          class="w-full py-4 px-5 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-slate-950 font-label-lg text-label-lg font-bold flex items-center justify-between shadow-lg shadow-[#25D366]/25 transition-all active:scale-98 group">
+          <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 fill-current shrink-0" viewBox="0 0 24 24">
+              <path
+                d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+            </svg>
+            <div class="flex flex-col text-left">
+              <span class="text-[15px] font-bold leading-tight">Enviar por WhatsApp</span>
+              <span class="text-[11px] font-medium opacity-80">Compartir mensaje directo con enlace</span>
+            </div>
+          </div>
+          <span
+            class="material-symbols-outlined text-[20px] group-hover:translate-x-1 transition-transform">chevron_right</span>
+        </a>
+
+        <!-- Opción 2: Enlace de la app en GitHub (Copiar enlace) -->
+        <div class="bg-surface-container-lowest/90 border border-white/10 rounded-2xl p-4 space-y-2.5">
+          <label
+            class="font-label-sm text-label-sm uppercase tracking-wider text-secondary flex items-center gap-1.5 font-bold">
+            <span class="material-symbols-outlined text-[16px]">link</span>
+            Copiar enlace de la App (GitHub)
+          </label>
+          <div class="flex items-center gap-2">
+            <input type="text" id="input-share-url" readonly value="https://github.com/HondurasPalpita/HondurasPalpita"
+              class="w-full bg-surface-container-highest text-on-surface font-body-md text-body-md px-3.5 py-2.5 rounded-xl border border-white/10 focus:outline-none select-all font-mono text-xs shadow-inner">
+            <button id="btn-copy-share-url"
+              class="px-4 py-2.5 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg font-bold flex items-center gap-1.5 hover:bg-primary/90 transition-all active:scale-95 shrink-0 shadow-md">
+              <span class="material-symbols-outlined text-[18px]" id="icon-copy-btn">content_copy</span>
+              <span id="text-copy-btn">Copiar</span>
+            </button>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic JavaScript -->
+  <script>
+      (function () {
+        // DOM Elements
+        const audioEngine = document.getElementById('audio-engine');
+        const btnMainPlay = document.getElementById('btn-main-play');
+        const playIcon = document.getElementById('play-icon');
+        const btnRefresh = document.getElementById('btn-refresh');
+        const refreshIcon = document.getElementById('refresh-icon');
+        const btnTimer = document.getElementById('btn-timer');
+        const timerBadge = document.getElementById('timer-badge');
+        const playerStateText = document.getElementById('player-state-text');
+        const stateDot = document.getElementById('state-dot');
+
+        const volSlider = document.getElementById('volume-slider');
+        const volPct = document.getElementById('volume-pct');
+        const volIcon = document.getElementById('volume-icon');
+        const btnMute = document.getElementById('btn-mute');
+
+        const waveBars = document.querySelectorAll('.wave-bar');
+        const pulseOuter = document.getElementById('pulse-outer');
+        const pulseMid = document.getElementById('pulse-mid');
+
+        const toast = document.getElementById('toast-notification');
+        const toastMsg = document.getElementById('toast-msg');
+        const toastIcon = document.getElementById('toast-icon');
+
+        const viewEnvivo = document.getElementById('view-envivo');
+        const viewContactenos = document.getElementById('view-contactenos');
+        const navBtnEnvivo = document.getElementById('nav-btn-envivo');
+        const navBtnContactenos = document.getElementById('nav-btn-contactenos');
+        const navIconEnvivo = document.getElementById('nav-icon-envivo');
+        const navIconContactenos = document.getElementById('nav-icon-contactenos');
+        const navIndEnvivo = document.getElementById('nav-indicator-envivo');
+        const navIndContactenos = document.getElementById('nav-indicator-contactenos');
+
+        const btnShareApp = document.getElementById('btn-share-app');
+        const btnSendGreeting = document.getElementById('btn-send-greeting');
+
+        const pwaBanner = document.getElementById('pwa-install-banner');
+        const btnInstallApp = document.getElementById('btn-install-app');
+        const btnDismissInstall = document.getElementById('btn-dismiss-install');
+
+        let isPlaying = false;
+        let prevVolume = 85;
+        let animInterval = null;
+        let sleepTimerTimeout = null;
+        let timerMinutes = 0;
+        let deferredPrompt = null;
+
+        const STREAM_URL = 'https://sonic2.sistemahost.es:8146/stream';
+
+        // ------------------------------------
+        // Toast Notification Helper
+        // ------------------------------------
+        function showToast(message, iconName = 'info', duration = 3000) {
+          toastMsg.textContent = message;
+          toastIcon.textContent = iconName;
+          toast.classList.remove('opacity-0', 'pointer-events-none', '-translate-y-2');
+          toast.classList.add('opacity-100', 'translate-y-0');
+
+          setTimeout(() => {
+            toast.classList.remove('opacity-100', 'translate-y-0');
+            toast.classList.add('opacity-0', 'pointer-events-none', '-translate-y-2');
+          }, duration);
+        }
+
+        // ------------------------------------
+        // MediaSession API Integration
+        // ------------------------------------
+        function updateMediaSession() {
+          if ('mediaSession' in navigator) {
+            navigator.mediaSession.metadata = new MediaMetadata({
+              title: 'Honduras Palpita',
+              artist: 'La voz y el corazón de Jesús de Otoro',
+              album: 'Radio Online • En Vivo',
+              artwork: [
+                { src: 'img/Honduras Palpita transparante.png', sizes: '192x192', type: 'image/png' },
+                { src: 'img/Honduras Palpita transparante.png', sizes: '512x512', type: 'image/png' }
+              ]
+            });
+
+            navigator.mediaSession.setActionHandler('play', () => playRadio());
+            navigator.mediaSession.setActionHandler('pause', () => pauseRadio());
+            navigator.mediaSession.setActionHandler('stop', () => pauseRadio());
+          }
+        }
+
+        // ------------------------------------
+        // Audio Equalizer Animation
+        // ------------------------------------
+        function startVisualizer() {
+          if (animInterval) clearInterval(animInterval);
+          animInterval = setInterval(() => {
+            if (!isPlaying) return;
+            waveBars.forEach(bar => {
+              const h = Math.floor(Math.random() * 75) + 20;
+              bar.style.height = h + '%';
+            });
+          }, 160);
+        }
+
+        function stopVisualizer() {
+          if (animInterval) clearInterval(animInterval);
+          waveBars.forEach(bar => {
+            bar.style.height = '15%';
+          });
+        }
+
+        // ------------------------------------
+        // Play / Pause Logic
+        // ------------------------------------
+        function playRadio() {
+          playerStateText.textContent = 'Conectando señal en vivo...';
+          playIcon.textContent = 'hourglass_top';
+
+          // Set fresh audio source to prevent buffer lag
+          audioEngine.src = STREAM_URL;
+          audioEngine.load();
+
+          audioEngine.play().then(() => {
+            isPlaying = true;
+            playIcon.textContent = 'pause';
+            playIcon.style.fontVariationSettings = "'FILL' 1";
+            playerStateText.textContent = 'Sonando en Vivo • Streaming Activo';
+
+            pulseOuter.classList.add('animate-ping');
+            pulseOuter.classList.remove('hidden');
+            pulseMid.classList.add('animate-pulse');
+            stateDot.classList.add('bg-secondary', 'animate-pulse');
+            stateDot.classList.remove('bg-gray-500');
+
+            startVisualizer();
+            updateMediaSession();
+            if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
+          }).catch(err => {
+            console.error("Playback error:", err);
+            isPlaying = false;
+            playIcon.textContent = 'play_arrow';
+            playerStateText.textContent = 'Error de conexión • Toca para reintentar';
+            showToast('Error al conectar con la emisora', 'error', 3500);
+            stopVisualizer();
+          });
+        }
+
+        function pauseRadio() {
+          audioEngine.pause();
+          // Stop fetching live stream to save bandwidth
+          audioEngine.src = '';
+          isPlaying = false;
+
+          playIcon.textContent = 'play_arrow';
+          playerStateText.textContent = 'Pausa • Toca para Sintonizar';
+
+          pulseOuter.classList.remove('animate-ping');
+          pulseOuter.classList.add('hidden');
+          pulseMid.classList.remove('animate-pulse');
+          stateDot.classList.remove('bg-secondary', 'animate-pulse');
+          stateDot.classList.add('bg-gray-500');
+
+          stopVisualizer();
+          if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'paused';
+        }
+
+        btnMainPlay.addEventListener('click', () => {
+          if (isPlaying) {
+            pauseRadio();
+          } else {
+            playRadio();
+          }
+        });
+
+        // ------------------------------------
+        // Reconnect / Refresh Signal
+        // ------------------------------------
+        btnRefresh.addEventListener('click', () => {
+          refreshIcon.classList.add('animate-spin');
+          showToast('Reconectando señal en directo...', 'sync', 2000);
+          playRadio();
+          setTimeout(() => {
+            refreshIcon.classList.remove('animate-spin');
+          }, 1200);
+        });
+
+        // ------------------------------------
+        // Volume & Mute Controls
+        // ------------------------------------
+        function updateVolumeUI(val) {
+          audioEngine.volume = val / 100;
+          volSlider.value = val;
+          volPct.textContent = val + '%';
+          if (val == 0) {
+            volIcon.textContent = 'volume_off';
+          } else if (val < 50) {
+            volIcon.textContent = 'volume_down';
+          } else {
+            volIcon.textContent = 'volume_up';
+          }
+        }
+
+        volSlider.addEventListener('input', (e) => {
+          updateVolumeUI(e.target.value);
+        });
+
+        btnMute.addEventListener('click', () => {
+          if (volSlider.value > 0) {
+            prevVolume = volSlider.value;
+            updateVolumeUI(0);
+            showToast('Sonido silenciado', 'volume_off');
+          } else {
+            updateVolumeUI(prevVolume || 80);
+            showToast('Sonido activado', 'volume_up');
+          }
+        });
+
+        // Initialize volume
+        updateVolumeUI(85);
+
+        // ------------------------------------
+        // Sleep Timer Controls
+        // ------------------------------------
+        btnTimer.addEventListener('click', () => {
+          if (sleepTimerTimeout) {
+            clearTimeout(sleepTimerTimeout);
+            sleepTimerTimeout = null;
+            timerMinutes = 0;
+            timerBadge.classList.add('hidden');
+            btnTimer.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+            btnTimer.classList.add('bg-surface-container-high', 'text-on-surface');
+            showToast('Temporizador cancelado', 'bedtime_off');
+            return;
+          }
+
+          // Cycle timers: 15m -> 30m -> 60m
+          if (timerMinutes === 0) timerMinutes = 15;
+          else if (timerMinutes === 15) timerMinutes = 30;
+          else if (timerMinutes === 30) timerMinutes = 60;
+
+          timerBadge.textContent = timerMinutes + 'm';
+          timerBadge.classList.remove('hidden');
+          btnTimer.classList.remove('bg-surface-container-high', 'text-on-surface');
+          btnTimer.classList.add('bg-secondary-container', 'text-on-secondary-container');
+          showToast(`Apagado automático en ${timerMinutes} minutos`, 'bedtime', 3000);
+
+          sleepTimerTimeout = setTimeout(() => {
+            pauseRadio();
+            showToast('Temporizador finalizado: Radio pausada', 'bedtime', 4000);
+            timerBadge.classList.add('hidden');
+            btnTimer.classList.remove('bg-secondary-container', 'text-on-secondary-container');
+            btnTimer.classList.add('bg-surface-container-high', 'text-on-surface');
+            sleepTimerTimeout = null;
+            timerMinutes = 0;
+          }, timerMinutes * 60 * 1000);
+        });
+
+        // ------------------------------------
+        // SPA View Switcher (En Vivo / Contáctenos)
+        // ------------------------------------
+        function switchView(targetView) {
+          if (targetView === 'contactenos') {
+            viewEnvivo.classList.add('hidden');
+            viewContactenos.classList.remove('hidden');
+
+            navBtnEnvivo.className = "flex flex-col items-center justify-center w-28 h-12 transition-all text-on-surface-variant hover:text-on-surface";
+            navIconEnvivo.style.fontVariationSettings = "'FILL' 0";
+            navIndEnvivo.className = "w-1.5 h-1.5 rounded-full bg-transparent mt-0.5";
+
+            navBtnContactenos.className = "flex flex-col items-center justify-center w-28 h-12 transition-all text-secondary";
+            navIconContactenos.style.fontVariationSettings = "'FILL' 1";
+            navIndContactenos.className = "w-1.5 h-1.5 rounded-full bg-secondary mt-0.5";
+
+            window.location.hash = '#contactenos';
+          } else {
+            viewContactenos.classList.add('hidden');
+            viewEnvivo.classList.remove('hidden');
+
+            navBtnEnvivo.className = "flex flex-col items-center justify-center w-28 h-12 transition-all text-secondary";
+            navIconEnvivo.style.fontVariationSettings = "'FILL' 1";
+            navIndEnvivo.className = "w-1.5 h-1.5 rounded-full bg-secondary mt-0.5";
+
+            navBtnContactenos.className = "flex flex-col items-center justify-center w-28 h-12 transition-all text-on-surface-variant hover:text-on-surface";
+            navIconContactenos.style.fontVariationSettings = "'FILL' 0";
+            navIndContactenos.className = "w-1.5 h-1.5 rounded-full bg-transparent mt-0.5";
+
+            window.location.hash = '#envivo';
+          }
+        }
+
+        navBtnEnvivo.addEventListener('click', () => switchView('envivo'));
+        navBtnContactenos.addEventListener('click', () => switchView('contactenos'));
+
+        // Check initial hash
+        if (window.location.hash === '#contactenos' || window.location.pathname.includes('contactenos')) {
+          switchView('contactenos');
+        }
+
+        // ------------------------------------
+        // Share App Modal Handler
+        // ------------------------------------
+        const modalShareApp = document.getElementById('modal-share-app');
+        const modalShareContent = document.getElementById('modal-share-content');
+        const btnCloseShareModal = document.getElementById('btn-close-share-modal');
+        const inputShareUrl = document.getElementById('input-share-url');
+        const btnCopyShareUrl = document.getElementById('btn-copy-share-url');
+        const iconCopyBtn = document.getElementById('icon-copy-btn');
+        const textCopyBtn = document.getElementById('text-copy-btn');
+        const btnShareWhatsapp = document.getElementById('btn-share-whatsapp');
+        const btnShareNative = document.getElementById('btn-share-native');
+
+        const defaultGithubUrl = 'https://github.com/HondurasPalpita/HondurasPalpita';
+        const currentUrl = window.location.href;
+        const appShareUrl = (currentUrl.includes('github.io') || currentUrl.includes('honduraspalpita')) ? currentUrl : defaultGithubUrl;
+
+        inputShareUrl.value = appShareUrl;
+
+        const whatsappMsg = `¡Escucha Honduras Palpita en vivo! 📻🎶 La voz y el corazón de Jesús de Otoro, Intibucá.\n\nAccede a la app aquí: ${appShareUrl}`;
+        btnShareWhatsapp.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsappMsg)}`;
+
+        function openShareModal() {
+          modalShareApp.classList.remove('opacity-0', 'pointer-events-none');
+          modalShareApp.classList.add('opacity-100', 'pointer-events-auto');
+          modalShareContent.classList.remove('scale-95');
+          modalShareContent.classList.add('scale-100');
+        }
+
+        function closeShareModal() {
+          modalShareApp.classList.remove('opacity-100', 'pointer-events-auto');
+          modalShareApp.classList.add('opacity-0', 'pointer-events-none');
+          modalShareContent.classList.remove('scale-100');
+          modalShareContent.classList.add('scale-95');
+        }
+
+        btnShareApp.addEventListener('click', openShareModal);
+        btnCloseShareModal.addEventListener('click', closeShareModal);
+
+        modalShareApp.addEventListener('click', (e) => {
+          if (e.target === modalShareApp) closeShareModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && modalShareApp.classList.contains('opacity-100')) {
+            closeShareModal();
+          }
+        });
+
+        btnCopyShareUrl.addEventListener('click', () => {
+          navigator.clipboard.writeText(inputShareUrl.value).then(() => {
+            textCopyBtn.textContent = '¡Copiado!';
+            iconCopyBtn.textContent = 'check';
+            btnCopyShareUrl.classList.remove('bg-primary');
+            btnCopyShareUrl.classList.add('bg-emerald-600');
+            showToast('¡Enlace copiado al portapapeles!', 'content_copy');
+
+            setTimeout(() => {
+              textCopyBtn.textContent = 'Copiar';
+              iconCopyBtn.textContent = 'content_copy';
+              btnCopyShareUrl.classList.remove('bg-emerald-600');
+              btnCopyShareUrl.classList.add('bg-primary');
+            }, 2500);
+          }).catch(() => {
+            inputShareUrl.select();
+            document.execCommand('copy');
+            showToast('¡Enlace copiado al portapapeles!', 'content_copy');
+          });
+        });
+
+        if (navigator.share) {
+          btnShareNative.addEventListener('click', () => {
+            navigator.share({
+              title: 'Honduras Palpita Radio Online',
+              text: 'Escucha Honduras Palpita en vivo desde Jesús de Otoro, Intibucá',
+              url: appShareUrl
+            }).catch(() => { });
+          });
+        } else {
+          btnShareNative.style.display = 'none';
+        }
+
+        // ------------------------------------
+        // Greeting Form Handler
+        // ------------------------------------
+        btnSendGreeting.addEventListener('click', () => {
+          const name = document.getElementById('input-sender-name').value.trim();
+          const msg = document.getElementById('input-dedication-msg').value.trim();
+
+          if (!name || !msg) {
+            showToast('Por favor escribe tu nombre y saludo', 'warning');
+            return;
+          }
+
+          const text = encodeURIComponent(`Hola Honduras Palpita! Soy ${name}. ${msg}`);
+          window.open(`https://wa.me/50431923406?text=${text}`, '_blank');
+          showToast('Abriendo WhatsApp para enviar saludo...', 'send');
+        });
+
+        // ------------------------------------
+        // PWA Installation & Service Worker
+        // ------------------------------------
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+              .then(reg => console.log('SW Registered:', reg.scope))
+              .catch(err => console.log('SW Registration failed:', err));
+          });
+        }
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          pwaBanner.classList.remove('hidden');
+        });
+
+        btnInstallApp.addEventListener('click', () => {
+          if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+              if (choiceResult.outcome === 'accepted') {
+                showToast('¡Gracias por instalar Honduras Palpita!', 'favorite');
+              }
+              deferredPrompt = null;
+              pwaBanner.classList.add('hidden');
+            });
+          }
+        });
+
+        btnDismissInstall.addEventListener('click', () => {
+          pwaBanner.classList.add('hidden');
+        });
+
+      })();
+  </script>
+
+</body>
+
+</html>
