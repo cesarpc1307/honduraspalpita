@@ -167,13 +167,13 @@
   class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-white">
 
   <!-- Audio Player Engine (Hidden HTML5 Audio element) -->
-  <audio id="audio-engine" preload="none">
+  <audio id="audio-engine" autoplay playsinline preload="auto">
     <source src="https://sonic2.sistemahost.es:8146/stream" type="audio/mpeg">
     Tu navegador no soporta reproducción de audio en directo.
   </audio>
 
   <!-- PWA Installation Banner -->
-  <div id="pwa-install-banner" class="fixed top-16 left-0 right-0 z-40 px-space-md pt-2">
+  <div id="pwa-install-banner" class="fixed top-16 left-0 right-0 z-[90] px-space-md pt-2 transform transition-all duration-300">
     <div
       class="bg-surface-container-high/95 backdrop-blur-md border border-secondary/30 rounded-xl p-space-sm shadow-xl flex items-center justify-between">
       <div class="flex items-center gap-3">
@@ -940,21 +940,31 @@
               updateMediaSession();
               if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
             }).catch(() => {
-              // Mobile browser gesture policy fallback
-              isPlaying = false;
-              playIcon.textContent = 'play_arrow';
-              playerStateText.textContent = 'Toca la pantalla para reproducir en vivo';
+              // Mobile browser gesture restriction fallback: start muted + unmute on first gesture
+              console.log('Unmuted autoplay restricted by browser policy. Starting muted buffer + gesture unmute.');
+              audioEngine.muted = true;
+              audioEngine.play().then(() => {
+                isPlaying = true;
+                playIcon.textContent = 'volume_off';
+                playerStateText.textContent = 'Toca la pantalla para activar el sonido en vivo';
+                startVisualizer();
+              }).catch(() => {
+                isPlaying = false;
+                playIcon.textContent = 'play_arrow';
+                playerStateText.textContent = 'Toca cualquier parte de la pantalla para escuchar en vivo';
+              });
 
               const enableAudioOnGesture = () => {
+                audioEngine.muted = false;
                 playRadio();
-                window.removeEventListener('click', enableAudioOnGesture);
-                window.removeEventListener('touchstart', enableAudioOnGesture);
-                window.removeEventListener('pointerdown', enableAudioOnGesture);
+                ['click', 'touchstart', 'touchend', 'pointerdown', 'scroll'].forEach(evt => {
+                  window.removeEventListener(evt, enableAudioOnGesture);
+                });
               };
 
-              window.addEventListener('click', enableAudioOnGesture, { once: true });
-              window.addEventListener('touchstart', enableAudioOnGesture, { once: true });
-              window.addEventListener('pointerdown', enableAudioOnGesture, { once: true });
+              ['click', 'touchstart', 'touchend', 'pointerdown', 'scroll'].forEach(evt => {
+                window.addEventListener(evt, enableAudioOnGesture, { passive: true, once: true });
+              });
             });
           }
         }

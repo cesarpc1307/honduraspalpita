@@ -3,8 +3,8 @@
   "name": "Honduras Palpita - Radio Online",
   "short_name": "HondurasPalpita",
   "description": "Radio Online en vivo de Jesús de Otoro, Intibucá, Honduras. Escucha la señal digital 24/7.",
-  "start_url": "./index.html",
-  "scope": "./",
+  "start_url": "https://cesarpc1307.github.io/honduraspalpita/",
+  "scope": "https://cesarpc1307.github.io/honduraspalpita/",
   "display": "standalone",
   "background_color": "#00132d",
   "theme_color": "#00132d",
@@ -16,21 +16,28 @@
   ],
   "icons": [
     {
-      "src": "img/Honduras Palpita transparante.png",
+      "src": "img/logo.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "img/Honduras Palpita transparante.png",
+      "src": "img/logo.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "img/Honduras Palpita transparante.png",
-      "sizes": "180x180",
-      "type": "image/png"
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

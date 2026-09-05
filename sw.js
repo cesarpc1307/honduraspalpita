@@ -1,11 +1,16 @@
-const CACHE_NAME = 'honduras-palpita-v3';
+const CACHE_NAME = 'honduras-palpita-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './envivo.html',
   './contactenos.html',
   './manifest.json',
-  './img/Honduras Palpita transparante.png'
+  './img/logo.png',
+  './img/Honduras Palpita transparante.png',
+  './icons/icon-192.png',
+  './icons/icon-512.png',
+  './icons/apple-touch-icon.png',
+  './icons/favicon.png'
 ];
 
 // Install Event - Pre-cache shell assets safely
