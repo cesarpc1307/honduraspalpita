@@ -2,6 +2,14 @@
 <html class="dark" lang="es">
 
 <head>
+  <script>
+    window.deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      window.deferredPrompt = e;
+      if (window.onPwaPromptReady) window.onPwaPromptReady();
+    });
+  </script>
   <meta charset="utf-8">
   <title>Honduras Palpita - Radio Online | Jesús de Otoro</title>
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
@@ -167,10 +175,7 @@
   class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-white">
 
   <!-- Audio Player Engine (Hidden HTML5 Audio element) -->
-  <audio id="audio-engine" autoplay playsinline preload="auto">
-    <source src="https://sonic2.sistemahost.es:8146/stream" type="audio/mpeg">
-    Tu navegador no soporta reproducción de audio en directo.
-  </audio>
+  <audio id="audio-engine" src="https://sonic2.sistemahost.es:8146/stream" autoplay playsinline preload="auto"></audio>
 
   <!-- PWA Installation Banner (Mobile Only) -->
   <div id="pwa-install-banner" class="hidden fixed top-16 left-0 right-0 z-[90] px-space-md pt-2 transform transition-all duration-300">
@@ -886,9 +891,9 @@
           playerStateText.textContent = 'Conectando señal en vivo...';
           playIcon.textContent = 'hourglass_top';
 
-          if (audioEngine.src !== STREAM_URL || !audioEngine.src) {
+          audioEngine.muted = false;
+          if (!audioEngine.src || audioEngine.src === '' || !audioEngine.src.includes('stream')) {
             audioEngine.src = STREAM_URL;
-            audioEngine.load();
           }
 
           audioEngine.play().then(() => {
@@ -919,13 +924,11 @@
           playerStateText.textContent = 'Conectando señal en vivo...';
           playIcon.textContent = 'hourglass_top';
 
-          audioEngine.src = STREAM_URL;
-          audioEngine.load();
-
           const playPromise = audioEngine.play();
           if (playPromise !== undefined) {
             playPromise.then(() => {
               isPlaying = true;
+              audioEngine.muted = false;
               playIcon.textContent = 'pause';
               playIcon.style.fontVariationSettings = "'FILL' 1";
               playerStateText.textContent = 'Sonando en Vivo • Streaming Activo';
@@ -939,20 +942,11 @@
               startVisualizer();
               updateMediaSession();
               if ('mediaSession' in navigator) navigator.mediaSession.playbackState = 'playing';
-            }).catch(() => {
-              // Mobile browser gesture restriction fallback: start muted + unmute on first gesture
-              console.log('Unmuted autoplay restricted by browser policy. Starting muted buffer + gesture unmute.');
-              audioEngine.muted = true;
-              audioEngine.play().then(() => {
-                isPlaying = true;
-                playIcon.textContent = 'volume_off';
-                playerStateText.textContent = 'Toca la pantalla para activar el sonido en vivo';
-                startVisualizer();
-              }).catch(() => {
-                isPlaying = false;
-                playIcon.textContent = 'play_arrow';
-                playerStateText.textContent = 'Toca cualquier parte de la pantalla para escuchar en vivo';
-              });
+            }).catch(err => {
+              console.log('Autoplay restriction active, waiting for gesture/touch:', err);
+              isPlaying = false;
+              playIcon.textContent = 'play_arrow';
+              playerStateText.textContent = 'Toca cualquier lugar para iniciar la señal en vivo';
 
               const enableAudioOnGesture = () => {
                 audioEngine.muted = false;
@@ -1265,15 +1259,17 @@
         }
 
         function handleInstallAction() {
-          if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
+          const promptEvent = window.deferredPrompt || deferredPrompt;
+          if (promptEvent) {
+            promptEvent.prompt();
+            promptEvent.userChoice.then((choiceResult) => {
               if (choiceResult.outcome === 'accepted') {
                 showToast('¡Gracias por instalar Honduras Palpita!', 'favorite');
                 if (pwaBanner) pwaBanner.classList.add('hidden');
                 if (btnHeaderInstall) btnHeaderInstall.classList.add('hidden');
                 if (btnHeroInstall) btnHeroInstall.classList.add('hidden');
               }
+              window.deferredPrompt = null;
               deferredPrompt = null;
             }).catch(() => {
               openInstallGuide();
@@ -1283,26 +1279,23 @@
           }
         }
 
-        // Show install options ONLY on mobile devices when not running as standalone app
-        if (isMobile && !isStandalone) {
-          if (pwaBanner) pwaBanner.classList.remove('hidden');
-          if (btnHeaderInstall) btnHeaderInstall.classList.remove('hidden');
-          if (btnHeroInstall) btnHeroInstall.classList.remove('hidden');
-        } else {
-          if (pwaBanner) pwaBanner.classList.add('hidden');
-          if (btnHeaderInstall) btnHeaderInstall.classList.add('hidden');
-          if (btnHeroInstall) btnHeroInstall.classList.add('hidden');
-        }
-
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          deferredPrompt = e;
+        function updateInstallButtonsVisibility() {
           if (isMobile && !isStandalone) {
             if (pwaBanner) pwaBanner.classList.remove('hidden');
             if (btnHeaderInstall) btnHeaderInstall.classList.remove('hidden');
             if (btnHeroInstall) btnHeroInstall.classList.remove('hidden');
+          } else {
+            if (pwaBanner) pwaBanner.classList.add('hidden');
+            if (btnHeaderInstall) btnHeaderInstall.classList.add('hidden');
+            if (btnHeroInstall) btnHeroInstall.classList.add('hidden');
           }
-        });
+        }
+
+        window.onPwaPromptReady = function () {
+          updateInstallButtonsVisibility();
+        };
+
+        updateInstallButtonsVisibility();
 
         [btnInstallApp, btnHeaderInstall, btnHeroInstall].forEach(btn => {
           if (btn) btn.addEventListener('click', handleInstallAction);
